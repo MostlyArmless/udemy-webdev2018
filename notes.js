@@ -80,3 +80,76 @@ allListItems.classList.add('styleClassName') //turn on class membership
 allListItems.classList.remove('styleClassName') //turn off class membership
 allListItems.classList.toggle("styleClassName") //Turns on and off the class membership of a given element
 
+
+//PROMISES
+/*
+A javascript Promise (new in ES6) is an object that may produce a single value some time in the future, either a "resolved" value (accepted) or "rejected" value (failed).
+
+A promise may be in 1 of 3 states: accepted, rejected, or pending.
+*/
+//eg 1
+const promise = new Promise((resolve, reject)) => {
+	if (conditionMet) {
+		resolve('Stuff Worked')
+	}
+	else {
+		reject('Error, it borked')
+	}
+}
+
+
+//eg 2
+promise
+	.then(result => result + '!')
+	.then(result2 => {
+		throw Error
+		console.log(result2)
+	})
+	.catch(() => console.log('Error!')) //This catches ANY PRIOR error thrown during the ".then" chain
+
+
+//eg 3
+promise
+	.then(result => result + '!')
+	.then(result2 => result2 + '?')
+	.catch(() => console.log('error!')) //this does NOT catch errors thrown by SUBSEQUENT .then statements
+	.then(result3 => {
+		throw Error;
+		console.log(result3 + '!')
+	})
+
+//eg 4: create a bunch of promises which don't fetch any data but for the sake of the example just sit there idling for N ms until they resolve.
+const promise2 = new Promise((resolve, reject) => {
+	setTimeout(resolve, 100, 'A');
+}
+
+const promise3 = new Promise((resolve, reject) => {
+	setTimeout(resolve, 1000, 'B');
+}
+
+const promise4 = new Promise((resolve, reject) => {
+	setTimeout(resolve, 3000, 'C');
+}
+
+//This means that it will wait for ALL of the promises in the input array of promises to resolve before running the .then() method
+Promise.all([promise1, promise2, promise3, promise4])
+	.then(values => {
+		console.log(values);
+	})
+
+
+//eg 5: real world example of when to use Promises
+const urls = [
+	'https://jsonplaceholder.typicode.com/users'
+	'https://jsonplaceholder.typicode.com/posts'
+	'https://jsonplaceholder.typicode.com/albums'
+]
+
+Promise.all(urls.map(url => {//map the function onto all urls in the array
+	return fetch(url.then(resp => resp.json())) //for each url in the array, fetch the url, then convert the response to json.
+}))
+	.then(results => {//then (once ALL the promises are resolved), log the results
+		console.log(results[0])
+		console.log(results[1])
+		console.log(results[2])
+	})
