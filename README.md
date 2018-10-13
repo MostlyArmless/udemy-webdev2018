@@ -13,7 +13,11 @@ Exercises and sample code from the Udemy course The Complete Web Developer in 20
 3. Open a .js file, then set sublime to always open files of this extension as "Babel - Javascript"
 4. Install nodejs (which comes with npm)
 5. Install GitHub Desktop
-6. in cmd, run `npm install -g create-react-app` (from any directory). This one package includes react, babel, webpack, linting, and everything you need to start a react app.
+6. in cmd, run the following:
+	`npm install -g create-react-app` (from any directory). This one package includes react, babel, webpack, linting, and everything you need to start a react app.
+	Apparently it's also necessary to install these:
+	`npm install -g react`
+	`npm install -g react-scripts`
 7. Navigate to the GitHub directory (not within a project folder) and use cmd `create-react-app <projectname>`
 
 

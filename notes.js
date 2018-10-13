@@ -153,3 +153,74 @@ Promise.all(urls.map(url => {//map the function onto all urls in the array
 		console.log(results[1])
 		console.log(results[2])
 	})
+
+
+//ASYNC AWAIT
+//These are in ES8, they're built on top of Promises
+//With promises, we can write this asynchronous code:
+movePlayer(100, 'Left')
+	.then(() => movePlayer(400, 'Left'))
+	.then(() => movePlayer(10, 'Right'))
+	.then(() => movePlayer(330, 'Left'))
+
+//The same thing but using async syntax instead:
+async funtion playerStart() {
+	const firstMove = await movePlayer(100, 'Left'); //pause
+	await movePlayer(400, 'Left'); //pause
+	await movePlayer(10, 'Right'); //pause
+	await movePlayer(330, 'Left'); //pause
+}
+
+//The 'await' keyword can be put in front of any function that returns a promise, and it will pause execution until that promise resolves
+
+//Realistic example: fetch() function, used to get stuff from URLs
+fetch('https://jsonplaceholder.typicode.com/users')
+	.then(resp => resp.json())
+	.then(console.log())
+
+//Now, as an async:
+async function fetchUsers() {
+	const response = await fetch('https://jsonplaceholder.typicode.com/users')
+	const data = await response.json()
+	console.log(data)
+}
+
+//One more realistic example: a list of URLs we need to fetch data from all of them.
+//The way to do this with raw Promises, as we've seen before is like this:
+const urls = [
+	'https://jsonplaceholder.typicode.com/users',
+	'https://jsonplaceholder.typicode.com/posts',
+	'https://jsonplaceholder.typicode.com/albums'
+]
+Promise.all(urls.map( url =>
+	fetch(url).then(resp => resp.json())
+)).then(array => {
+	console.log('users', array[0])
+	console.log('posts', array[1])
+	console.log('albums', array[2])
+}).catch('oops');
+
+//Now, the same thing with async await syntax:
+const urls = [
+	'https://jsonplaceholder.typicode.com/users',
+	'https://jsonplaceholder.typicode.com/posts',
+	'https://jsonplaceholdser.typicode.com/albums'
+]
+const getData = async function () {
+	try {
+		const [ users, posts, albums ] = await Promise.all(urls.map( url => 
+			fetch(url).then(resp => resp.json())
+		))
+
+		console.log('albums', users)
+		console.log('albums', posts)
+		console.log('albums', albums)
+	}
+	catch (err) {
+		console.log('oops', err);
+	}
+}
+
+
+//BACKEND BASICS
+//Node.js will also let us use javascript on a server. express.js is the technology used to make the server
