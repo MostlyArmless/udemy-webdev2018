@@ -4,6 +4,8 @@ import Logo from './components/logo/logo';
 import FaceRecognition from './components/facerecognition/facerecognition';
 import ImageLinkForm from './components/imagelinkform/imagelinkform';
 import Rank from './components/rank/rank';
+import SignIn from './components/signin/signin';
+import Register from './components/register/register';
 import './App.css';
 import 'tachyons';
 import Particles from 'react-particles-js';
@@ -31,7 +33,9 @@ class App extends Component {
 		this.state = {
 			input: '',
 			imageUrl: '',
-			regions: []
+			regions: [],
+			route: 'signin',
+			isSignedIn: false
 		}
 	}
 
@@ -47,24 +51,52 @@ class App extends Component {
 		.catch(err => console.log(err));
 	}
 
+	onRouteChange = (route) => {
+		if (route === 'signout') {
+			this.setState({isSignedIn: false});
+		}
+		else if (route === 'home') {
+			this.setState({isSignedIn: true});
+		}
+
+		this.setState({route: route});
+	}
+
 	render() {
+
+		let pageContents;
+		switch(this.state.route)
+		{
+			case 'signin':
+				pageContents = <SignIn onRouteChange={this.onRouteChange}/>;
+				break;
+			case 'register':
+				pageContents = <Register onRouteChange={this.onRouteChange}/>;
+				break;
+			case 'home':
+			default:
+				pageContents = 
+					<div>
+						<Logo />
+						<Rank />
+						<ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
+						<FaceRecognition regions={this.state.regions} imageUrl={this.state.imageUrl}/>
+					</div>;
+				break;
+		}
 		return (
 			<div className="App">
 			<Particles
-							className='particles'
-							params={particlesOptions}
-							style={{
-								width: '100%'
-							}}
+				className='particles'
+				params={particlesOptions}
+				style={{
+					width: '100%'
+				}}
 			/>
-			<Navigation />
-			<Logo />
-			<Rank />
-			<ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
-			<FaceRecognition regions={this.state.regions} imageUrl={this.state.imageUrl}/>
+			<Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange}/>
+			{pageContents}
 			</div>
 		);
 	}
 }
-
 export default App;

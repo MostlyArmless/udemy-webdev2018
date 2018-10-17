@@ -11,8 +11,7 @@ function FaceRecognition ({ imageUrl, regions }) {
 		const image = document.getElementById('input_image');
 		const totalWidth = Number(image.width);
 		const totalHeight = Number(image.height);
-		console.log(totalWidth)
-		console.log(totalHeight)
+		
 		return(<div
 			key={region.id}
 			className='bounding-box'
