@@ -1,12 +1,10 @@
 .App {
   text-align: center;
-  margin: 0 auto;
-  width: 100%;
 }
 
 .center {
-  display: flex;
-  justify-content: center;
+  /*display: flex;*/
+  /*justify-content: center;*/
 }
 
 .particles {
