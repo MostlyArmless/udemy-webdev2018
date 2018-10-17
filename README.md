@@ -4,12 +4,12 @@ Exercises and sample code from the Udemy course The Complete Web Developer in 20
 ## Workspace setup instructions
 1. Install Sublime Text 3
 2. Use ST3's package manager to install the following packages:
-	A File Icon
-	Babel
-	BracketHighlighter
-	Material Theme
-	Oceanic Next Color Scheme
-	SideBarEnhancements
+	* A File Icon
+	* Babel
+	* BracketHighlighter
+	* Material Theme
+	* Oceanic Next Color Scheme
+	* SideBarEnhancements
 3. Open a .js file, then set sublime to always open files of this extension as "Babel - Javascript"
 4. Install nodejs (which comes with npm)
 5. Install GitHub Desktop
