@@ -10,6 +10,7 @@ import './App.css';
 import 'tachyons';
 import Particles from 'react-particles-js';
 import Clarifai from 'clarifai';
+import ScreenSize from './components/windowsize/windowsize';
 
 const app = new Clarifai.App({
 	apiKey: '616154e6afb24f218757300e3056a931'
@@ -85,7 +86,8 @@ class App extends Component {
 				break;
 		}
 		return (
-			<div className="App">
+			<div className="App" style={{width: '1000px'}}>
+			<Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange}/>
 			<Particles
 				className='particles'
 				params={particlesOptions}
@@ -93,7 +95,7 @@ class App extends Component {
 					width: '100%'
 				}}
 			/>
-			<Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange}/>
+			
 			{pageContents}
 			</div>
 		);

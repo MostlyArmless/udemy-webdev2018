@@ -10,6 +10,7 @@
     "react-particles-js": "^2.3.0",
     "react-scripts": "2.0.4",
     "react-tilt": "^0.1.4",
+    "react-window-size": "^1.2.2",
     "tachyons": "^4.11.1"
   },
   "scripts": {
