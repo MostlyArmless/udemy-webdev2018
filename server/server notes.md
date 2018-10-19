@@ -9,3 +9,6 @@
 next();});`, you can handle incoming requests in any way you want before passing thru to the routing logic.
 * Install [Postman](https://www.getpostman.com), which is a cool piece of software that helps with API development.
 * `npm install body-parser` to handle put requests with Express. Always need this piece of middleware.
+* Postman's "x-www-form-urlencoded" is the format associated with HTML forms, if you end up using those in your website that's what you'll use in Postman to dev the API.
+* RESTful APIs are meant to be stateless, which means that any incoming request should contain enough information to complete it regardless of what else has recently happened to the server.
+* Need to use the `express.static` module to handle serving of static webpages.
