@@ -7,3 +7,5 @@
 * The way Express works is like a giant switch statement. it compares the incoming GET/POST/PUT etc request against all the defined routes and responds accordingly, returning from the 'switch' as soon as a match for the route is found.
 * Express Middleware: by doing `app.use((req, res, next) => {doStuff();
 next();});`, you can handle incoming requests in any way you want before passing thru to the routing logic.
+* Install [Postman](https://www.getpostman.com), which is a cool piece of software that helps with API development.
+* `npm install body-parser` to handle put requests with Express. Always need this piece of middleware.
