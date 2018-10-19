@@ -2,13 +2,14 @@ const express = require('express');
 
 const app = express();
 
-app.get('/', (req, res) => {
-	// Create an object now that we've received a request, and send it as a response
-	const user = {
-		name: 'Sally',
-		hobby: 'soccer'
-	}
+// Routing get requests
 
-	res.send(user); // Express will automatically JSON.stringify() an object that you pass it.
-})
+app.get('/profile', (req, res) => {
+	res.send("Getting profile")
+});
+
+app.get('/', (req, res) => {
+	res.send("Getting root")
+});
+
 app.listen(3000);
