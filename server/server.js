@@ -1,18 +1,14 @@
-const http = require('http');
+const express = require('express');
 
-const server = http.createServer((request, response) => {
-	// Note that because we're running this via node.js it's gunna log to the CMD window, not to the browser's console.
-	console.log('method', request.method);
-	console.log('url', request.url);
+const app = express();
 
-	// Create a JS object which we then convert to JSON and use to respond to the request with.
+app.get('/', (req, res) => {
+	// Create an object now that we've received a request, and send it as a response
 	const user = {
-		name: 'John',
-		hobby: 'Skating'
+		name: 'Sally',
+		hobby: 'soccer'
 	}
 
-	response.setHeader('Content-Type', 'application/json');
-	response.end(JSON.stringify(user))
+	res.send(user); // Express will automatically JSON.stringify() an object that you pass it.
 })
-
-server.listen(3000);
+app.listen(3000);
