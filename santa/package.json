@@ -9,8 +9,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "nodemon santaScript.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon santaScript.js"
   },
   "keywords": [],
   "author": "",
