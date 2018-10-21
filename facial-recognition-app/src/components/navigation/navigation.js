@@ -9,7 +9,7 @@ const Navigation = ({ onRouteChange, isSignedIn }) => {
 	}
 	else {
 		navContents = 
-		<div class="cf ph2-ns">
+		<div className="cf ph2-ns">
 			<p className='f4 fl w-100 w-50-ns pa2 link dim black underline pointer' onClick={() => onRouteChange('signin')}> Sign In</p>
 			<p className='f4 fl w-100 w-50-ns pa2 link dim black underline pointer' onClick={() => onRouteChange('register')}> Register</p>
 		</div>;
