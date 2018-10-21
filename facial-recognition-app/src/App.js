@@ -27,6 +27,14 @@ const particlesOptions = {
 	}
 }
 
+const blankUser = {
+	id: '',
+	name: '',
+	email: '',
+	entries: 0,
+	joined: ''
+}
+
 class App extends Component {
 	constructor() {
 		super();
@@ -36,14 +44,7 @@ class App extends Component {
 			regions: [],
 			route: 'signin',
 			isSignedIn: false,
-			user: {
-				id: '',
-				name: '',
-				email: '',
-				entries: 0,
-				joined: ''
-			}
-
+			user: blankUser
 		}
 	}
 
@@ -55,6 +56,12 @@ class App extends Component {
 			entries: data.entries,
 			joined: data.joined
 		}})
+	}
+
+
+
+	onSignOut = (data) => {
+		this.setState({user: blankUser});
 	}
 
 	onInputChange = (event) => {
