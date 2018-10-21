@@ -1,9 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const cors = require('cors');
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
 
 const database = {
 	users: [
@@ -18,10 +19,17 @@ const database = {
 		{
 			id: '124',
 			name: 'Sally',
-			email: 'sally@gmail.com',
 			password: 'bananas',
+			email: 'sally@gmail.com',
 			entries: 0,
 			joined: new Date()
+		}
+	],
+	login: [
+		{
+			id: '987',
+			hash: '',
+			email: 'john@gmail.com'
 		}
 	]
 }
@@ -34,11 +42,10 @@ app.get('/', (req, res) => {
 app.post('/signin', (req, res) => {
 	if (req.body.email === database.users[0].email &&
 		req.body.password === database.users[0].password) {
-		res.json('success');
+		res.json(database.users[0]);
 	} else {
 		res.status(400).json('Error logging in');
 	}
-	res.send('sign in.');
 })
 
 app.post('/register', (req, res) => {
@@ -69,7 +76,7 @@ app.get('/profile/:id', (req, res) => {
 	}
 });
 
-app.post('/image', (req, res) => {
+app.put('/image', (req, res) => {
 	const { id } = req.body;
 	let found = false;
 	database.users.forEach(user => {
@@ -80,6 +87,7 @@ app.post('/image', (req, res) => {
 		}
 	});
 	if (!found) {
+		console.log("couldn't find user with ID=",id)
 		return res.status(400).json('Not found.');
 	}
 })
