@@ -2,11 +2,14 @@ import React from 'react';
 import Logo from '../logo/logo';
 
 //This is going to be stateless so we can define this component as a pure function rather than needing to use a class:
+
+
+
 const Navigation = ({ onRouteChange, isSignedIn }) => {
 	
 	let navLinks;
 	if (isSignedIn) {
-		navLinks = <p className='f3 link dim black underline pa3 pointer' onClick={() => onRouteChange('signin')}> Sign Out</p>;
+		navLinks = <p className='f6 f5-ns dib mr3 mr4-ns link dim black underline pointer' onClick={() => onRouteChange('signout')}> Sign Out</p>;
 	}
 	else {
 		navLinks = 
