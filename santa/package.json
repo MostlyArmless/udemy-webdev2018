@@ -1,0 +1,17 @@
+{
+  "name": "santa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "santaScript.js",
+  "dependencies": {
+    "node-fetch": "^2.2.0",
+    "nodemon": "^1.18.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "nodemon santaScript.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
