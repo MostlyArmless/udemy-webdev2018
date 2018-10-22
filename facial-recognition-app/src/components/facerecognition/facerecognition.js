@@ -1,8 +1,6 @@
 import React from 'react';
 import './facerecognition.css';
 
-// https://thumbs.dreamstime.com/z/green-bush-6168774.jpg
-// http://blogs.discovermagazine.com/neuroskeptic/files/2018/04/tom_cruise_lol.png
 function FaceRecognition ({ imageUrl, regions }) {
 	//Build the list of bounding boxes outisde of the component's return statement.
 	

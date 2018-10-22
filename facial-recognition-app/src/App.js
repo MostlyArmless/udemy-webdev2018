@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Navigation from './components/navigation/navigation'; // Remember not to use capital letters in the path. You can use them in the actual classnames though
 import FaceRecognition from './components/facerecognition/facerecognition';
-import ImageLinkForm from './components/imagelinkform/imagelinkform';
+import ImageLinkForm from './components/Forms/imagelinkform/imagelinkform';
+import SignIn from './components/Forms/signin/signin';
+import Register from './components/Forms/register/register';
 import Rank from './components/rank/rank';
-import SignIn from './components/signin/signin';
-import Register from './components/register/register';
 import './App.css';
 import 'tachyons';
 import Particles from 'react-particles-js';

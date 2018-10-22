@@ -1,6 +1,6 @@
 import React from 'react';
 import './signin.css';
-import SignInSuccessFailIndicator from './SignInSuccessFailIndicator/SignInSuccessFailIndicator';
+import FormSubmitSuccessFailIndicator from '../FormSubmitSuccessFailIndicator/FormSubmitSuccessFailIndicator';
 
 class SignIn extends React.Component {
 
@@ -92,7 +92,7 @@ class SignIn extends React.Component {
 					</form>
 					
 					<div>
-						<SignInSuccessFailIndicator signInFailed={this.state.signInFailed}/>
+						<FormSubmitSuccessFailIndicator signInFailed={this.state.signInFailed} failureMessage="Login Error"/>
 						<input
 							onClick={() => this.onSubmitSignIn()}
 							className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"

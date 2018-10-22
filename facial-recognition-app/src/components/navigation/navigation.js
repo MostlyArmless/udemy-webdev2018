@@ -2,9 +2,6 @@ import React from 'react';
 import Logo from '../logo/logo';
 
 //This is going to be stateless so we can define this component as a pure function rather than needing to use a class:
-
-
-
 const Navigation = ({ onRouteChange, isSignedIn }) => {
 	
 	let navLinks;
