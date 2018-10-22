@@ -1,5 +1,6 @@
 import React from 'react';
 import './signin.css';
+import SignInSuccessFailIndicator from './SignInSuccessFailIndicator/SignInSuccessFailIndicator';
 
 class SignIn extends React.Component {
 
@@ -7,10 +8,17 @@ class SignIn extends React.Component {
 		super(props);
 		this.state = {
 			signInEmail: '',
-			signInPassword: ''
+			signInPassword: '',
+			signInFailed: false
 		}
 	}
 
+	clearInputFields = (event) => {
+		this.setState({
+			signInEmail: '',
+			signInPassword: ''
+		})
+	}
 
 	onEmailChange = (event) => {
 		this.setState({signInEmail: event.target.value})
@@ -21,7 +29,6 @@ class SignIn extends React.Component {
 	}
 
 	onSubmitSignIn = () => {
-
 		fetch('http://localhost:3000/signin', {
 			method: 'post',
 			headers: {'Content-Type': 'application/json'},
@@ -30,25 +37,35 @@ class SignIn extends React.Component {
 				password: this.state.signInPassword
 			})
 		})
-			.then(response => response.json())
-			.then(user => {
-				if (user.id) {
-					this.props.onSignIn(user);
-					this.props.onRouteChange('home');
+			.then(response => {
+				if (response.ok) {
+					// Sign in succeeded, change route to home
+					this.setState({signInFailed: false});
+					return response.json().then(user => {
+						this.props.onSignIn(user);
+						this.props.onRouteChange('home')
+					});
 				}
-			})
+				else {
+					// Sign in failed, clear the sign in fields
+					this.setState({signInFailed: true});
+					this.clearInputFields();
+				}
+			});
 	}
 	
 	render()
 	{
-
 		const { onRouteChange } = this.props;
 
 		return (
 		<article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw5 shadow-5 center">
 			<main className="pa4 black-80">
 				<div className="measure">
-					<fieldset id="sign_up" className="ba b--transparent ph0 mh0">
+					<form
+						id="sign_in"
+						className="ba b--transparent ph0 mh0"
+						onSubmit={() => this.onSubmitSignIn()}>
 						<legend className="f4 fw6 ph0 mh0">Sign In</legend>
 						<div className="mt3">
 							<label
@@ -56,6 +73,7 @@ class SignIn extends React.Component {
 								htmlFor="email-address">Email</label>
 							<input
 								onChange={this.onEmailChange}
+								value={this.state.signInEmail}
 								className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
 								type="email"
 								name="email-address"
@@ -65,14 +83,16 @@ class SignIn extends React.Component {
 							<label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
 							<input
 								onChange={this.onPasswordChange}
+								value={this.state.signInPassword}
 								className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
 								type="password"
 								name="password"
 								id="password"/>
 						</div>
-					</fieldset>
+					</form>
 					
-					<div className="">
+					<div>
+						<SignInSuccessFailIndicator signInFailed={this.state.signInFailed}/>
 						<input
 							onClick={() => this.onSubmitSignIn()}
 							className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
@@ -83,7 +103,7 @@ class SignIn extends React.Component {
 					<div className="lh-copy mt3">
 				  		<p
 							onClick={() => onRouteChange('register')}
-							className="f6 link dim black db pointer">
+							className="f6 link dim black db pointer underline">
 							Register</p>
 					</div>
 				</div>

@@ -1,14 +1,17 @@
+#root {
+	width: 100%;
+	height: 100%;
+}
+
 body {
 	display: flex;
 	justify-content: center;
 	margin: 0;
 	padding: 0;
-	/*width: 100%;*/
 	font-family: "Courier New", Courier, monospace;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background:
-		/*repeating-linear-gradient(45deg, transparent, #FF9900 0%, #3299BA 30%),*/
 		linear-gradient(180deg, #FF9900 0%, #3299BA 30%);
 }
 

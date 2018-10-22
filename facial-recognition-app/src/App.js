@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Navigation from './components/navigation/navigation'; // Remember not to use capital letters in the path. You can use them in the actual classnames though
-import Logo from './components/logo/logo';
 import FaceRecognition from './components/facerecognition/facerecognition';
 import ImageLinkForm from './components/imagelinkform/imagelinkform';
 import Rank from './components/rank/rank';
@@ -120,7 +119,6 @@ class App extends Component {
 			default:
 				pageContents = 
 					<div>
-						<Logo />
 						<Rank name={this.state.user.name} entries={this.state.user.entries}/>
 						<ImageLinkForm onInputChange={this.onInputChange} onPictureSubmit={this.onPictureSubmit}/>
 						<FaceRecognition regions={this.state.regions} imageUrl={this.state.imageUrl}/>
@@ -128,17 +126,17 @@ class App extends Component {
 				break;
 		}
 		return (
-			<div className="App" style={{width: '1000px'}}>
-			<Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange}/>
-			<Particles
-				className='particles'
-				params={particlesOptions}
-				style={{
-					width: '100%'
-				}}
-			/>
-			
-			{pageContents}
+			<div className="App">
+				<Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange}/>
+				<Particles
+					className='particles'
+					params={particlesOptions}
+					style={{
+						width: '100%'
+					}}
+				/>
+				
+				{pageContents}
 			</div>
 		);
 	}

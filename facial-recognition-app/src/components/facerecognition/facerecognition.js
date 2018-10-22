@@ -6,7 +6,6 @@ import './facerecognition.css';
 function FaceRecognition ({ imageUrl, regions }) {
 	//Build the list of bounding boxes outisde of the component's return statement.
 	
-
 	const boundingBoxes = regions.map((region) => {
 		const image = document.getElementById('input_image');
 		const totalWidth = Number(image.width);
