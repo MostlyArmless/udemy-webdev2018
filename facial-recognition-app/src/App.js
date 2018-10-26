@@ -26,25 +26,26 @@ const particlesOptions = {
 	}
 }
 
-const blankUser = {
-	id: '',
-	name: '',
-	email: '',
-	entries: 0,
-	joined: ''
-}
-
 class App extends Component {
 	constructor() {
 		super();
-		this.state = {
+
+		this.initialState = {
 			input: '',
 			imageUrl: '',
 			regions: [],
 			route: 'signin',
 			isSignedIn: false,
-			user: blankUser
+			user: {
+				id: '',
+				name: '',
+				email: '',
+				entries: 0,
+				joined: ''
+			}
 		}
+
+		this.state = this.initialState;
 	}
 
 	onSignIn = (data) => {
@@ -57,10 +58,12 @@ class App extends Component {
 		}})
 	}
 
+	resetState() {
+		this.setState(this.initialState);
+	}
 
-
-	onSignOut = (data) => {
-		this.setState({user: blankUser});
+	signOut = () => {
+		this.resetState();
 	}
 
 	onInputChange = (event) => {
@@ -70,8 +73,13 @@ class App extends Component {
 	onPictureSubmit = () => {
 		this.setState({imageUrl: this.state.input})
 		console.log(this.state.user)
+		// TODO: add error handling for images that are hosted with CORS disabled
+		//e.g. https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
+		//This one works though:
+		// https://media.glamour.com/photos/5a425fd3b6bcee68da9f86f8/master/w_743,c_limit/best-face-oil.png
 		app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
 		.then(clarifaiResponse => {
+			console.log('Clarifai response:',clarifaiResponse);
 			this.setState({regions: clarifaiResponse.outputs[0].data.regions})
 
 			if (clarifaiResponse) {
@@ -88,6 +96,9 @@ class App extends Component {
 						// This is how we update just a single field of user object, rather than replacing the entire user object
 						this.setState(Object.assign(this.state.user, {entries: count}))
 					})
+					.catch(err => {
+						console.log(err);
+					})
 			}
 		})
 		.catch(err => console.log(err));
@@ -95,7 +106,7 @@ class App extends Component {
 
 	onRouteChange = (route) => {
 		if (route === 'signout') {
-			this.setState({isSignedIn: false});
+			this.signOut(); // Set the user state back to blank user so nothing persists.
 			route = 'signin';
 		}
 		else if (route === 'home') {
@@ -111,7 +122,9 @@ class App extends Component {
 		switch(this.state.route)
 		{
 			case 'signin':
-				pageContents = <SignIn onSignIn={this.onSignIn} onRouteChange={this.onRouteChange}/>;
+				pageContents = <SignIn
+					onSignIn={this.onSignIn}
+					onRouteChange={this.onRouteChange} />;
 				break;
 			case 'register':
 				pageContents = <Register onSignIn={this.onSignIn} onRouteChange={this.onRouteChange}/>;

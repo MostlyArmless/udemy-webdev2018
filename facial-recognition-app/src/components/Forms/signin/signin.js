@@ -38,12 +38,14 @@ class SignIn extends React.Component {
 			})
 		})
 			.then(response => {
+				console.log(response);
 				if (response.ok) {
 					// Sign in succeeded, change route to home
 					this.setState({signInFailed: false});
-					return response.json().then(user => {
-						this.props.onSignIn(user);
-						this.props.onRouteChange('home')
+					return response.json()
+						.then(user => {
+							this.props.onSignIn(user);
+							this.props.onRouteChange('home')
 					});
 				}
 				else {
