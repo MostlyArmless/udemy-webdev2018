@@ -1,4 +1,4 @@
-app.post('/register', (req, res) => {
+const handleRegister = (req, res, bcrypt, db) => {
 	const {email, name, password} = req.body;
 	const hash = bcrypt.hashSync(password);
 
@@ -28,4 +28,9 @@ app.post('/register', (req, res) => {
 
 	db('users')
 
-});
+};
+
+
+module.exports = {
+	handleRegister: handleRegister
+}

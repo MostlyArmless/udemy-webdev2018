@@ -38,7 +38,6 @@ class SignIn extends React.Component {
 			})
 		})
 			.then(response => {
-				console.log(response);
 				if (response.ok) {
 					// Sign in succeeded, change route to home
 					this.setState({signInFailed: false});
@@ -53,6 +52,9 @@ class SignIn extends React.Component {
 					this.setState({signInFailed: true});
 					this.clearInputFields();
 				}
+			})
+			.catch(err => {
+				console.log(err);
 			});
 	}
 	
