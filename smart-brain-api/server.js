@@ -36,6 +36,7 @@ app.post('/signin', (req, res) => { signIn.handleSignIn(req, res, bcrypt, db) })
 app.post('/register', (req, res) => { register.handleRegister(req, res, bcrypt, db) });
 app.get('/profile/:id', (req, res) => { profile.handleProfileGet(req, res, db) });
 app.put('/image', (req, res) => { image.handleImagePut(req, res, db) });
+app.post('/imageurl', (req, res) => { image.handleClarifaiApiCall(req, res) });
 
 // Turn on the server
 app.listen(3000, () => {

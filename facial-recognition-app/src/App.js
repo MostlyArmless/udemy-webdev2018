@@ -8,11 +8,6 @@ import Rank from './components/rank/rank';
 import './App.css';
 import 'tachyons';
 import Particles from 'react-particles-js';
-import Clarifai from 'clarifai';
-
-const app = new Clarifai.App({
-	apiKey: '616154e6afb24f218757300e3056a931'
-})
 
 const particlesOptions = {
 	particles: {
@@ -77,9 +72,15 @@ class App extends Component {
 		//e.g. https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
 		//This one works though:
 		// https://media.glamour.com/photos/5a425fd3b6bcee68da9f86f8/master/w_743,c_limit/best-face-oil.png
-		app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+		fetch('http://localhost:3000/imageurl', {
+			method: 'post',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify({
+				input: this.state.input
+			})
+		})
+		.then(clarifaiFirstReponse => clarifaiFirstReponse.json())
 		.then(clarifaiResponse => {
-			console.log('Clarifai response:',clarifaiResponse);
 			this.setState({regions: clarifaiResponse.outputs[0].data.regions})
 
 			if (clarifaiResponse) {
